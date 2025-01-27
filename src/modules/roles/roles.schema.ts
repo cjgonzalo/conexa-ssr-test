@@ -4,7 +4,7 @@ import { HydratedDocument, Types } from "mongoose"
 @Schema()
 export class Roles {
   @Prop({ required: true })
-  role: String  
+  name: string  
 }
 
 export type RolesDocument = HydratedDocument<Roles>
