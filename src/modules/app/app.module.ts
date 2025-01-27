@@ -4,7 +4,8 @@ import { UsersModule } from '../users/users.module';
 import { RolesModule } from '../roles/roles.module';
 import { AuthModule } from '../auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SwapiModule } from '../swapi/swapi.module';
+import { MoviesModule } from '../movies/movies.module';
+import { SharedModule } from '../shared/shared.module';
 
 @Module({
   imports: [
@@ -16,10 +17,11 @@ import { SwapiModule } from '../swapi/swapi.module';
         uri: configService.get("DATABASE_URI")
       })
     }),
+    SharedModule,
     UsersModule,
     RolesModule,
     AuthModule,
-    SwapiModule
+    MoviesModule
   ]
 })
 
