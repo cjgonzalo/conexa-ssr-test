@@ -3,23 +3,42 @@ import { HttpStatus, Injectable } from "@nestjs/common";
 @Injectable()
 export class ResponseService {
 
-  success(message: string, httpCode = HttpStatus.OK, data: any = null) {
-    return { success: true, message, httpCode, data }
+  success(data: any = null) {
+    return {
+      success: true,
+      httpCode: HttpStatus.OK,
+      data
+    }
   }
   
   error(message: string, httpCode: number = HttpStatus.BAD_REQUEST) {
     return { success: false, message, httpCode }
   }
 
-  create(message: string, httpCode: number = HttpStatus.CREATED, data: any) {
-    return { success: true, message, httpCode, data }
+  create(data: any = null) {
+    return {
+      success: true,
+      message: "Registro creado correctamente",
+      httpCode: HttpStatus.CREATED,
+      data
+    }
   }
 
-  update(message: string, httpCode: number = HttpStatus.OK, data: any) {
-    return { success: true, message, httpCode, data }
+  update(data: any = null) {
+    return {
+      success: true,
+      message: "Registro actualizado correctamente",
+      httpCode: HttpStatus.OK,
+      data
+    }
   }
 
-  delete(message: string, httpCode: number = HttpStatus.OK, data: any) {
-    return { success: true, message, httpCode, data }
+  delete(data: any = null) {
+    return {
+      success: true,
+      message: "Registro eliminado correctamente",
+      httpCode: HttpStatus.OK,
+      data
+    }
   }
 }

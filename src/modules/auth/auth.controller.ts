@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserInterface } from '../users/interfaces/user.interface';
 import { ResponseService } from '../shared/responses.service';
@@ -14,7 +14,7 @@ export class AuthController {
   async signUp(@Body() user: UserInterface) {
     try {
       await this.authService.signUp(user)
-      return this.responseService.success("Usuario registrado exitosamente")
+      return this.responseService.create()
 
     } catch(error: any) {
       if(error.code === 11000) {
@@ -30,5 +30,6 @@ export class AuthController {
     @Body("password") password: string
   ) {
     await this.authService.login(email, password)
+    return this.responseService.success()
   }
 }
