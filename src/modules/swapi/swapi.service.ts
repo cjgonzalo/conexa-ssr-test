@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import fetch from 'node-fetch';
 import SwapiInterface from './interfaces/swapi.interface';
 import { SwapiResourcesInterface } from './interfaces/resources.interface';
+import { HttpService } from '@nestjs/axios';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class SwapiService{
   constructor(
     private readonly configService: ConfigService,
+    private readonly httpService: HttpService
   ) {}
 
   async getResources(): Promise<SwapiResourcesInterface> {
@@ -16,12 +18,12 @@ export class SwapiService{
     if(!swapiBaseUrl) {
       throw new Error("Swapi url not defined")
     }
-    const resources = await fetch(swapiBaseUrl)
-    return await resources.json() as SwapiResourcesInterface
+    const axiosResponse = await lastValueFrom(this.httpService.get(swapiBaseUrl))
+    return axiosResponse.data
   }
 
   async getSwapiData(resource: string): Promise<SwapiInterface> {
-    const response = await fetch(resource)
-    return await response.json() as SwapiInterface
+    const axiosResponse = await lastValueFrom(this.httpService.get(resource))
+    return axiosResponse.data
   }
 }
