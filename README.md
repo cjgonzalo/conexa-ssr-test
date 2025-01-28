@@ -2,15 +2,27 @@
 
 ## Instrucciones para correr el proyecto
 
-### 1. Instalar dependencias
+### 1. Clonar repositorio (utilizar alguno de los siguientes comandos)
+
+#### Clonar por ssh
+```bash
+$ git clone git@github.com:cjgonzalo/conexa-ssr-test.git
+```
+#### Clonar por https
+
+```bash
+$ git clone https://github.com/cjgonzalo/conexa-ssr-test.git
+```
+
+### 2. Instalar dependencias
 
 ```bash
 $ npm install
 ```
 
-### 2. Crear archivo .env en la raíz del proyecto y completar de acuerdo al archivo .env.example
+### 3. Crear archivo .env en la raíz del proyecto y completar de acuerdo al archivo .env.example
 
-### 3. Ejecutar el siguiente comando
+### 4. Ejecutar el siguiente comando
 ```bash
 $ npm run start
 ```
