@@ -29,7 +29,7 @@ export class AuthController {
     @Body("email") email: string,
     @Body("password") password: string
   ) {
-    await this.authService.login(email, password)
-    return this.responseService.success()
+    const token = await this.authService.login(email, password)
+    return this.responseService.success(token)
   }
 }
