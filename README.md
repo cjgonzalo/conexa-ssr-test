@@ -25,3 +25,12 @@ $ npm run test
 # e2e tests
 $ npm run test:e2e
 ```
+
+<hr>
+
+## Para ver la documentación de la api con Swagger
+
+### 1. Correr el proyecto
+
+### 2. Ingresar a http://localhost:3000/api
+(Por defecto se utiliza el puerto 3000, si se utiliza otro, ingresar a la url con el puerto utilizado)
