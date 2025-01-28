@@ -8,9 +8,9 @@ import { MoviesModule } from '../movies/movies.module';
 import { SharedModule } from '../shared/shared.module';
 import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import { SwapiService } from '../swapi/swapi.service';
 import { DynamicModelService } from '../shared/dynamic-model.service';
 import { MoviesService } from '../movies/movies.service';
+import { SwapiModule } from '../swapi/swapi.module';
 
 @Module({
   imports: [
@@ -27,9 +27,10 @@ import { MoviesService } from '../movies/movies.service';
     UsersModule,
     RolesModule,
     AuthModule,
-    MoviesModule
+    MoviesModule,
+    SwapiModule
   ],
-  providers: [AppService, SwapiService, DynamicModelService, MoviesService]
+  providers: [AppService, DynamicModelService, MoviesService]
 })
 
 export class AppModule {}
