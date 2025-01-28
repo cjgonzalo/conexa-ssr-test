@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Roles, RolesDocument } from './roles.schema';
 import { Model } from 'mongoose';
 import { RoleInterface } from './interfaces/roles.interface';
-import { ROLES } from './constants/roles.constants';
+import { ROLES } from './enums/roles.enum';
 
 @Injectable()
 export class RolesService implements OnModuleInit {
