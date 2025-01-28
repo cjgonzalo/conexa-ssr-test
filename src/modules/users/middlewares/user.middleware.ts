@@ -1,21 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { UserDocument } from "../users.schema";
 import { genSalt, hash } from "bcrypt"
 
-// export async function hashPassword(next: Function) {
-//   const user = this as UserDocument
+export async function hashPassword(next: Function) {
+  const user = this as UserDocument
 
-//   if(!user.isModified("password")) {
-//     next()
-//   }
-//   const salt = await genSalt(Number(process.env.BCRYPT_SALT))
-//   user.password = await hash(user.password, salt)
-//   next()
-// }
-
-export async function hashPassword(password: string) {
+  if(!user.isModified("password")) {
+    next()
+  }
+  
   const salt = await genSalt(Number(process.env.BCRYPT_SALT))
-  password = await hash(password, salt)
+  user.password = await hash(user.password, salt)
+  next()
 }
 
 export function validatePassword(password: string) {

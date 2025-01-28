@@ -14,7 +14,7 @@ export class User implements UserInterface {
   @Prop({ required: true, unique: true, validate: validateEmail })
   email: string
 
-  @Prop({ required: true, validate: validatePassword, pre: hashPassword })
+  @Prop({ required: true, validate: validatePassword })
   password: string
   
   @Prop({ type: Types.ObjectId, required: true, ref: "Roles" })
@@ -24,6 +24,6 @@ export class User implements UserInterface {
 export type UserDocument = HydratedDocument<User>
 const UserSchema = SchemaFactory.createForClass(User)
 
-// UserSchema.pre("save", hashPassword)
+UserSchema.pre("save", hashPassword)
 
 export default UserSchema
