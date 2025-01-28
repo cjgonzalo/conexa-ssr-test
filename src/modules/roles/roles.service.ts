@@ -29,5 +29,10 @@ export class RolesService implements OnModuleInit {
       const adminRole = new this.rolesModel({ name: ROLES.ADMIN })
       await adminRole.save()
     }
+    const user = await this.rolesModel.findOne({ name: ROLES.REGULAR_USER })
+    if(!user) {
+      const userRole = new this.rolesModel({ name: ROLES.REGULAR_USER })
+      await userRole.save()
+    }
   }
 }
