@@ -1,6 +1,6 @@
 // dynamic-model.service.ts
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Schema, model, Model, connection, connect, Types } from 'mongoose';
+import { Schema, model, Model, connection, connect, models } from 'mongoose';
 import { SwapiService } from '../swapi/swapi.service';
 
 @Injectable()
@@ -14,7 +14,10 @@ export class DynamicModelService implements OnModuleInit {
     los esquemas se generan a partir de los tipos de datos que se reciben de los recursos de SWAPI
   */
   private async createOrGetModel(name: string, data: object): Promise<Model<any> | undefined> {
-    if (this.models.has(name)) {
+    if(models[name]) {
+      if (!this.models.has(name)) {
+        this.models.set(name, models[name])
+      }
       return this.models.get(name)
     }
 
@@ -26,7 +29,7 @@ export class DynamicModelService implements OnModuleInit {
       schemaFields[key] = { type: typeof data[key] }
     })
 
-    const schema = new Schema(schemaFields, { collection: name, _id: true })
+    const schema = new Schema(schemaFields, { collection: name })
     const newModel = model(name, schema)
 
     this.models.set(name, newModel)
@@ -61,11 +64,11 @@ export class DynamicModelService implements OnModuleInit {
     return { ...doc, id: Number(this.extractLastSegment(doc.url)) }
   }
 
-  private async insertDocuments(model: Model<any>, docs: any[]) {
+  async insertDocuments(model: Model<any>, docs: any[]) {
     await model.insertMany(docs.map(doc => this.transformDocForInsert(doc)))
   }
 
-  private extractLastSegment(input: string): string {
+  extractLastSegment(input: string): string {
     return String(input
       .slice(0, input.length - 1)
       .split("/")
