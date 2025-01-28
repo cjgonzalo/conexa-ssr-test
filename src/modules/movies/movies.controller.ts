@@ -42,7 +42,7 @@ export class MoviesController {
   @ApiResponse({ status: HttpStatus.CREATED, description: "Generic response for post requests" })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: "Unauthorized" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ROLES.REGULAR_USER)
+  @Roles(ROLES.ADMIN)
   async createMovie(@Body() movie: object) {
     const result = await this.moviesService.createMovie(movie)
     return this.responseService.create(result)
