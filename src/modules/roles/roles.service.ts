@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Roles, RolesDocument } from './roles.schema';
 import { Model } from 'mongoose';
 import { RoleInterface } from './interfaces/roles.interface';
+import { ROLES } from './constants/roles.constants';
 
 @Injectable()
-export class RolesService {
+export class RolesService implements OnModuleInit {
 
   constructor(
     @InjectModel(Roles.name) private rolesModel: Model<RolesDocument>
@@ -20,5 +21,13 @@ export class RolesService {
   async createRole(role: RoleInterface) {
     const roleDoc = new this.rolesModel(role)
     return await roleDoc.save()
+  }
+
+  async onModuleInit() {
+    const admin = await this.rolesModel.findOne({ name: ROLES.ADMIN })
+    if(!admin) {
+      const adminRole = new this.rolesModel({ name: ROLES.ADMIN })
+      await adminRole.save()
+    }
   }
 }
