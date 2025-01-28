@@ -102,7 +102,7 @@ export class DynamicModelService implements OnModuleInit {
       
       const resources = await this.swapiService.getResources()
   
-      for (const resource of resources) {
+      for (const resource of Object.values(resources)) {
         const collName = this.extractLastSegment(resource)
         const data = await connection
           .collection(collName)
