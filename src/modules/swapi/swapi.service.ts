@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import fetch from 'node-fetch';
-import SwapiInterface from '../shared/interfaces/swapi.interface';
+import SwapiInterface from './interfaces/swapi.interface';
 
 @Injectable()
 export class SwapiService{
